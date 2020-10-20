@@ -9,6 +9,10 @@ interface Props {
   validate: (value: string) => any
   className?: string | undefined
   errorClassName?: string | undefined
+  handleInputvalues: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    name: string
+  ) => void
 }
 
 const dropdownOptions = [
@@ -21,7 +25,8 @@ export const renderInputs = ({
   name,
   validate,
   className,
-  errorClassName
+  errorClassName,
+  handleInputvalues
 }: Props): React.ReactElement | undefined => {
   if (type === 'input') {
     return (
@@ -30,6 +35,9 @@ export const renderInputs = ({
         errorClassName={errorClassName}
         isValid={(value) => validate(value)}
         name={name}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>, name: string) =>
+          handleInputvalues(event, name)
+        }
       />
     )
   } else if (type === 'dropdown') {

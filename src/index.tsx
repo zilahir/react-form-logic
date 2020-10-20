@@ -23,6 +23,8 @@ type Config = {
   errorClassName?: string | undefined
   successClassName?: string | undefined
   baseClassName?: string | undefined
+  onSubmit: () => void
+  submitButtonLabel: string
 }
 
 type Level = {
@@ -36,6 +38,7 @@ interface Props {
 
 export const ExampleComponent = ({ inputs }: Props) => {
   const [currentLevel, setCurrentLevel] = React.useState<number>(1)
+  // const [inputValues, setInputValues] = React.useState<any>({})
   function validate(value: string) {
     const result = value.length > 1
     if (result) {
@@ -43,6 +46,13 @@ export const ExampleComponent = ({ inputs }: Props) => {
         setCurrentLevel((currentValue: number) => currentValue + 1)
       }
     }
+  }
+
+  function handleInputvalues(
+    event: React.ChangeEvent<HTMLInputElement>,
+    name: any
+  ) {
+    console.debug('value', event.target.value, 'name', name)
   }
 
   return (
@@ -58,11 +68,16 @@ export const ExampleComponent = ({ inputs }: Props) => {
               type: currentInput.inputType,
               validate,
               className: inputs.config.className,
-              errorClassName: inputs.config.errorClassName
+              errorClassName: inputs.config.errorClassName,
+              handleInputvalues: (event: any, name: any) =>
+                handleInputvalues(event, name)
             })}
           </div>
         ))
       )}
+      <button type='button' onClick={inputs.config.onSubmit}>
+        {inputs.config.submitButtonLabel}
+      </button>
     </div>
   )
 }
