@@ -1,15 +1,16 @@
+/* eslint-disable no-unused-vars */
 import * as React from 'react'
+import { Option } from 'react-dropdown'
 import styles from './styles.module.css'
 
 import { renderInputs } from './utils/renderInput'
-
-// type InputType = 'input' | 'dropdown'
 
 type Input = {
   label: string
   inputType: string
   key: number
   name: string
+  dropDownOptions?: Option[]
 }
 
 type Inputs = {
@@ -25,6 +26,7 @@ type Config = {
   baseClassName?: string | undefined
   onSubmit: (values: any) => void
   submitButtonLabel: string
+  submitClass?: string | undefined
 }
 
 type Level = {
@@ -50,7 +52,7 @@ export const ExampleComponent = ({ inputs }: Props) => {
 
   function handleInputvalues(
     event: React.ChangeEvent<HTMLInputElement>,
-    name: any
+    name: string
   ) {
     setInputValues({
       ...inputValues,
@@ -76,13 +78,20 @@ export const ExampleComponent = ({ inputs }: Props) => {
               validate,
               className: inputs.config.className,
               errorClassName: inputs.config.errorClassName,
+              dropDownOptions: currentInput.dropDownOptions
+                ? currentInput.dropDownOptions
+                : [],
               handleInputvalues: (event: any, name: any) =>
                 handleInputvalues(event, name)
             })}
           </div>
         ))
       )}
-      <button type='button' onClick={() => handleSubmit()}>
+      <button
+        className={inputs.config.submitClass}
+        type='button'
+        onClick={() => handleSubmit()}
+      >
         {inputs.config.submitButtonLabel}
       </button>
     </div>
