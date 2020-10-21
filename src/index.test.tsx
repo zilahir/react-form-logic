@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { ReactLogicForm } from '.'
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(ReactLogicForm).toBeTruthy()
   })
 })

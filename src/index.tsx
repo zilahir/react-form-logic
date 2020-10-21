@@ -41,7 +41,7 @@ interface Props {
   inputs: Level
 }
 
-export const ExampleComponent = ({ inputs }: Props) => {
+export const ReactLogicForm = ({ inputs }: Props) => {
   const [currentLevel, setCurrentLevel] = React.useState<number>(1)
   const [inputValues, setInputValues] = React.useState<any>({})
   function validate(value: string) {

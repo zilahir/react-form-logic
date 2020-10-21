@@ -34,7 +34,8 @@ export const renderInputs = ({
   labelClassName,
   label,
   onClick,
-  buttonLabel
+  buttonLabel,
+  inputClassName
 }: Props): React.ReactElement | undefined => {
   if (type === 'input') {
     return (
@@ -65,7 +66,11 @@ export const renderInputs = ({
     return (
       <React.Fragment>
         <p>{label}</p>
-        <button type='button' onClick={() => onClick()}>
+        <button
+          className={inputClassName}
+          type='button'
+          onClick={() => onClick()}
+        >
           {buttonLabel}
         </button>
       </React.Fragment>

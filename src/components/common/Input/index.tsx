@@ -33,10 +33,10 @@ export const Input = ({
           validate: {
             isValid: (value: string) => isValid(value)
           },
-          required: 'this is required',
+          required: 'Ez a mező kötelező',
           minLength: {
             value: 2,
-            message: 'min length is not enough'
+            message: 'A bevitt szöveg túl rövid...'
           }
         })}
       />
