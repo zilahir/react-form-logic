@@ -11,6 +11,8 @@ type Input = {
   key: number
   name: string
   dropDownOptions?: Option[]
+  inputClassName?: string
+  onClick?: () => any
 }
 
 type Inputs = {
@@ -69,14 +71,15 @@ export const ExampleComponent = ({ inputs }: Props) => {
       {Array.from(new Array(currentLevel)).map((_, index: number) =>
         inputs.inputs[index].inputs.map((currentInput: Input) => (
           <div className={styles.oneInput} key={currentInput.key}>
-            <label className={inputs.config.labelClassName}>
-              {currentInput.label}
-            </label>
             {renderInputs({
+              inputClassName: currentInput.inputClassName,
+              labelClassName: inputs.config.labelClassName,
+              label: currentInput.label,
               name: currentInput.name,
               type: currentInput.inputType,
               validate,
               className: inputs.config.className,
+              onClick: currentInput.onClick ? currentInput.onClick : () => {},
               errorClassName: inputs.config.errorClassName,
               dropDownOptions: currentInput.dropDownOptions
                 ? currentInput.dropDownOptions

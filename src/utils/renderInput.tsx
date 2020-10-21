@@ -8,7 +8,11 @@ import { Input } from '../components/common/Input'
 interface Props {
   type: string
   name: string
+  label: string
+  labelClassName: string | undefined
   dropDownOptions: Option[]
+  inputClassName: string | undefined
+  onClick: () => any
   validate: (value: string) => any
   className?: string | undefined
   errorClassName?: string | undefined
@@ -25,20 +29,26 @@ export const renderInputs = ({
   className,
   errorClassName,
   handleInputvalues,
-  dropDownOptions
+  dropDownOptions,
+  labelClassName,
+  label,
+  onClick
 }: Props): React.ReactElement | undefined => {
-  console.debug('dropDownOptions', dropDownOptions)
   if (type === 'input') {
     return (
-      <Input
-        className={className}
-        errorClassName={errorClassName}
-        isValid={(value) => validate(value)}
-        name={name}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>, name: string) =>
-          handleInputvalues(event, name)
-        }
-      />
+      <React.Fragment>
+        <label className={labelClassName}>{label}</label>
+        <Input
+          className={className}
+          errorClassName={errorClassName}
+          isValid={(value) => validate(value)}
+          name={name}
+          onChange={(
+            event: React.ChangeEvent<HTMLInputElement>,
+            name: string
+          ) => handleInputvalues(event, name)}
+        />
+      </React.Fragment>
     )
   } else if (type === 'dropdown') {
     return (
@@ -49,6 +59,12 @@ export const renderInputs = ({
     )
   } else if (type === 'textarea') {
     return <textarea className={className} name={name} />
+  } else if (type === 'button') {
+    return (
+      <button type='button' onClick={() => onClick()}>
+        {label}
+      </button>
+    )
   }
   return undefined
 }
