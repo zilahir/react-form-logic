@@ -9,6 +9,7 @@ interface Props {
   type: string
   name: string
   label: string
+  buttonLabel: string | undefined
   labelClassName: string | undefined
   dropDownOptions: Option[]
   inputClassName: string | undefined
@@ -32,7 +33,8 @@ export const renderInputs = ({
   dropDownOptions,
   labelClassName,
   label,
-  onClick
+  onClick,
+  buttonLabel
 }: Props): React.ReactElement | undefined => {
   if (type === 'input') {
     return (
@@ -61,9 +63,12 @@ export const renderInputs = ({
     return <textarea className={className} name={name} />
   } else if (type === 'button') {
     return (
-      <button type='button' onClick={() => onClick()}>
-        {label}
-      </button>
+      <React.Fragment>
+        <p>{label}</p>
+        <button type='button' onClick={() => onClick()}>
+          {buttonLabel}
+        </button>
+      </React.Fragment>
     )
   }
   return undefined

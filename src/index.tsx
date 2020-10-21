@@ -13,6 +13,7 @@ type Input = {
   dropDownOptions?: Option[]
   inputClassName?: string
   onClick?: () => any
+  buttonLabel?: string | undefined
 }
 
 type Inputs = {
@@ -72,6 +73,7 @@ export const ExampleComponent = ({ inputs }: Props) => {
         inputs.inputs[index].inputs.map((currentInput: Input) => (
           <div className={styles.oneInput} key={currentInput.key}>
             {renderInputs({
+              buttonLabel: currentInput.buttonLabel,
               inputClassName: currentInput.inputClassName,
               labelClassName: inputs.config.labelClassName,
               label: currentInput.label,
