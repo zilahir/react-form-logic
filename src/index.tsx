@@ -81,7 +81,10 @@ export const ExampleComponent = ({ inputs }: Props) => {
               type: currentInput.inputType,
               validate,
               className: inputs.config.className,
-              onClick: currentInput.onClick ? currentInput.onClick : () => {},
+              onClick: currentInput.onClick
+                ? currentInput.onClick
+                : () =>
+                    setCurrentLevel((currentValue: number) => currentValue + 1),
               errorClassName: inputs.config.errorClassName,
               dropDownOptions: currentInput.dropDownOptions
                 ? currentInput.dropDownOptions
@@ -92,13 +95,15 @@ export const ExampleComponent = ({ inputs }: Props) => {
           </div>
         ))
       )}
-      <button
-        className={inputs.config.submitClass}
-        type='button'
-        onClick={() => handleSubmit()}
-      >
-        {inputs.config.submitButtonLabel}
-      </button>
+      {currentLevel === inputs.inputs.length && (
+        <button
+          className={inputs.config.submitClass}
+          type='button'
+          onClick={() => handleSubmit()}
+        >
+          {inputs.config.submitButtonLabel}
+        </button>
+      )}
     </div>
   )
 }
