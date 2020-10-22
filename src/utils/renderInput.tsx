@@ -64,7 +64,16 @@ export const renderInputs = ({
     return (
       <React.Fragment>
         <label className={labelClassName}>{label}</label>
-        <textarea className={className} name={name} />
+        <Input
+          isValid={(value) => validate(value)}
+          className={`${className} ${inputClassName}`}
+          name={name}
+          errorClassName={errorClassName}
+          onChange={(
+            event: React.ChangeEvent<HTMLInputElement>,
+            name: string
+          ) => handleInputvalues(event, name)}
+        />
       </React.Fragment>
     )
   } else if (type === 'button') {
