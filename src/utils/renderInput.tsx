@@ -61,7 +61,12 @@ export const renderInputs = ({
       />
     )
   } else if (type === 'textarea') {
-    return <textarea className={className} name={name} />
+    return (
+      <React.Fragment>
+        <label className={labelClassName}>{label}</label>
+        <textarea className={className} name={name} />
+      </React.Fragment>
+    )
   } else if (type === 'button') {
     return (
       <React.Fragment>
