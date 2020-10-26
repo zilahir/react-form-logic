@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react'
 import ReactDropdown, { Option } from 'react-dropdown'
-import 'react-dropdown/style.css'
+
+import styles from './Dropdown.module.scss'
 
 interface Props {
   options: Array<Option>
@@ -21,6 +22,10 @@ export const Dropdown = ({ options, isValid }: Props): React.ReactElement => {
         onChange={(selected: Option) => handleChange(selected)}
         options={options}
         value={value}
+        className={styles['Dropdown-root']}
+        controlClassName={styles['Dropdown-control']}
+        placeholderClassName={styles['']}
+        menuClassName={styles['Dropdown-menu']}
       />
     </div>
   )
