@@ -68,11 +68,9 @@ export const ReactLogicForm = ({ inputs }: Props) => {
   }
 
   function handleSubmit() {
-    inputs.config
-      .onSubmit(inputValues)
-      .then((result: PromiseSettledResult<any>) => {
-        toggleIsSubmitted(true)
-      })
+    inputs.config.onSubmit(inputValues).then(() => {
+      toggleIsSubmitted(true)
+    })
   }
 
   return (
