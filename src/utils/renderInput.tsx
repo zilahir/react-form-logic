@@ -9,7 +9,7 @@ import { Textarea } from '../components/common/Textarea'
 interface Props {
   type: string
   name: string
-  label: string
+  label: string | React.ReactChild
   buttonLabel: string | undefined
   labelClassName: string | undefined
   dropDownOptions: Option[]

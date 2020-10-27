@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 import { renderInputs } from './utils/renderInput'
 
 type Input = {
-  label: string
+  label: string | React.ReactChild
   inputType: string
   key: number
   name: string
