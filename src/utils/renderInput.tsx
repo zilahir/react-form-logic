@@ -4,6 +4,7 @@ import { Option } from 'react-dropdown'
 import { Dropdown } from '../components/common/Dropdown'
 
 import { Input } from '../components/common/Input'
+import { Textarea } from '../components/common/Textarea'
 
 interface Props {
   type: string
@@ -64,13 +65,13 @@ export const renderInputs = ({
     return (
       <React.Fragment>
         <label className={labelClassName}>{label}</label>
-        <Input
+        <Textarea
           isValid={(value) => validate(value)}
           className={`${className} ${inputClassName}`}
           name={name}
           errorClassName={errorClassName}
           onChange={(
-            event: React.ChangeEvent<HTMLInputElement>,
+            event: React.ChangeEvent<HTMLTextAreaElement>,
             name: string
           ) => handleInputvalues(event, name)}
         />

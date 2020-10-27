@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react'
 import { Option } from 'react-dropdown'
+import classnames from 'classnames'
 import styles from './styles.module.css'
 
 import { renderInputs } from './utils/renderInput'
@@ -27,9 +28,11 @@ type Config = {
   errorClassName?: string | undefined
   successClassName?: string | undefined
   baseClassName?: string | undefined
-  onSubmit: (values: any) => void
+  onSubmit: (values: any) => Promise<any>
   submitButtonLabel: string
   submitClass?: string | undefined
+  successMessage: string | undefined
+  sucesssClassName: string | undefined
 }
 
 type Level = {
@@ -44,6 +47,7 @@ interface Props {
 export const ReactLogicForm = ({ inputs }: Props) => {
   const [currentLevel, setCurrentLevel] = React.useState<number>(1)
   const [inputValues, setInputValues] = React.useState<any>({})
+  const [isSubmitted, toggleIsSubmitted] = React.useState<boolean>(false)
   function validate(value: string) {
     const result = value.length > 1
     if (result) {
@@ -64,46 +68,67 @@ export const ReactLogicForm = ({ inputs }: Props) => {
   }
 
   function handleSubmit() {
-    inputs.config.onSubmit(inputValues)
+    inputs.config
+      .onSubmit(inputValues)
+      .then((result: PromiseSettledResult<any>) => {
+        toggleIsSubmitted(true)
+      })
   }
 
   return (
-    <div className={inputs.config.baseClassName}>
-      {Array.from(new Array(currentLevel)).map((_, index: number) =>
-        inputs.inputs[index].inputs.map((currentInput: Input) => (
-          <div className={styles.oneInput} key={currentInput.key}>
-            {renderInputs({
-              buttonLabel: currentInput.buttonLabel,
-              inputClassName: currentInput.inputClassName,
-              labelClassName: inputs.config.labelClassName,
-              label: currentInput.label,
-              name: currentInput.name,
-              type: currentInput.inputType,
-              validate,
-              className: inputs.config.className,
-              onClick: currentInput.onClick
-                ? currentInput.onClick
-                : () =>
-                    setCurrentLevel((currentValue: number) => currentValue + 1),
-              errorClassName: inputs.config.errorClassName,
-              dropDownOptions: currentInput.dropDownOptions
-                ? currentInput.dropDownOptions
-                : [],
-              handleInputvalues: (event: any, name: any) =>
-                handleInputvalues(event, name)
-            })}
-          </div>
-        ))
-      )}
-      {currentLevel === inputs.inputs.length && (
-        <button
-          className={inputs.config.submitClass}
-          type='button'
-          onClick={() => handleSubmit()}
-        >
-          {inputs.config.submitButtonLabel}
-        </button>
-      )}
-    </div>
+    <React.Fragment>
+      <div
+        className={classnames(
+          inputs.config.baseClassName,
+          isSubmitted ? styles.hidden : ''
+        )}
+      >
+        {Array.from(new Array(currentLevel)).map((_, index: number) =>
+          inputs.inputs[index].inputs.map((currentInput: Input) => (
+            <div className={styles.oneInput} key={currentInput.key}>
+              {renderInputs({
+                buttonLabel: currentInput.buttonLabel,
+                inputClassName: currentInput.inputClassName,
+                labelClassName: inputs.config.labelClassName,
+                label: currentInput.label,
+                name: currentInput.name,
+                type: currentInput.inputType,
+                validate,
+                className: inputs.config.className,
+                onClick: currentInput.onClick
+                  ? currentInput.onClick
+                  : () =>
+                      setCurrentLevel(
+                        (currentValue: number) => currentValue + 1
+                      ),
+                errorClassName: inputs.config.errorClassName,
+                dropDownOptions: currentInput.dropDownOptions
+                  ? currentInput.dropDownOptions
+                  : [],
+                handleInputvalues: (event: any, name: any) =>
+                  handleInputvalues(event, name)
+              })}
+            </div>
+          ))
+        )}
+        {currentLevel === inputs.inputs.length && (
+          <button
+            className={inputs.config.submitClass}
+            type='button'
+            onClick={() => handleSubmit()}
+          >
+            {inputs.config.submitButtonLabel}
+          </button>
+        )}
+      </div>
+      <div
+        className={classnames(
+          !isSubmitted ? styles.hidden : '',
+          inputs.config.successClassName
+        )}
+      >
+        <p>sucess</p>
+      </div>
+    </React.Fragment>
   )
 }
