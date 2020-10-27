@@ -8,13 +8,19 @@ interface Props {
   options: Array<Option>
   isValid: (value: string) => any
   className?: string | undefined
+  onChange: (value: Option) => void
 }
 
-export const Dropdown = ({ options, isValid }: Props): React.ReactElement => {
+export const Dropdown = ({
+  options,
+  isValid,
+  onChange
+}: Props): React.ReactElement => {
   const [value, setValue] = React.useState<Option>(options[0])
   function handleChange(value: Option) {
     setValue(value)
     isValid(value.value)
+    onChange(value)
   }
   return (
     <div>

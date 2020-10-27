@@ -19,7 +19,7 @@ interface Props {
   className?: string | undefined
   errorClassName?: string | undefined
   handleInputvalues: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string,
     name: string
   ) => void
 }
@@ -50,7 +50,7 @@ export const renderInputs = ({
           onChange={(
             event: React.ChangeEvent<HTMLInputElement>,
             name: string
-          ) => handleInputvalues(event, name)}
+          ) => handleInputvalues(event.target.value, name)}
         />
       </React.Fragment>
     )
@@ -59,6 +59,7 @@ export const renderInputs = ({
       <Dropdown
         isValid={(value) => validate(value)}
         options={dropDownOptions}
+        onChange={(selected: Option) => handleInputvalues(selected.value, name)}
       />
     )
   } else if (type === 'textarea') {
@@ -73,7 +74,7 @@ export const renderInputs = ({
           onChange={(
             event: React.ChangeEvent<HTMLTextAreaElement>,
             name: string
-          ) => handleInputvalues(event, name)}
+          ) => handleInputvalues(event.target.value, name)}
         />
       </React.Fragment>
     )

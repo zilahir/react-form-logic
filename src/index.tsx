@@ -57,13 +57,10 @@ export const ReactLogicForm = ({ inputs }: Props) => {
     }
   }
 
-  function handleInputvalues(
-    event: React.ChangeEvent<HTMLInputElement>,
-    name: string
-  ) {
+  function handleInputvalues(event: string, name: string) {
     setInputValues({
       ...inputValues,
-      [name]: event.target.value
+      [name]: event
     })
   }
 
