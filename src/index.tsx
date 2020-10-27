@@ -26,13 +26,13 @@ type Config = {
   className?: string | undefined
   labelClassName?: string | undefined
   errorClassName?: string | undefined
-  successClassName?: string | undefined
+  sucesssClassName?: string | undefined
   baseClassName?: string | undefined
   onSubmit: (values: any) => Promise<any>
   submitButtonLabel: string
   submitClass?: string | undefined
-  successMessage: string | undefined
-  sucesssClassName: string | undefined
+  successMessage?: string | undefined
+  successContainerClassName?: string | undefined
 }
 
 type Level = {
@@ -122,10 +122,10 @@ export const ReactLogicForm = ({ inputs }: Props) => {
       <div
         className={classnames(
           !isSubmitted ? styles.hidden : '',
-          inputs.config.successClassName
+          inputs.config.successContainerClassName
         )}
       >
-        <p>sucess</p>
+        <p>{inputs.config.successMessage}</p>
       </div>
     </React.Fragment>
   )
